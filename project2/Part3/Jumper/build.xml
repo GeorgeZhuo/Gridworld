@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<project default="run" name="helloWorld" basedir=".">
+  <description> A simple Java project</description>
+
+  <property name="srcDir" location="./src"/>
+  <property name="buildDir" location="./build"/>
+  <property name="distDir" location="./dist"/>
+  <property name="testDir" location="./test"/>
+  
+  <target name="clean">
+      <delete dir="${distDir}"/>
+      <delete dir="./report" />
+      <delete dir="./reports" />
+  </target>
+
+  <target name="init" depends="clean">
+    <tstamp/>
+    <mkdir dir="${buildDir}"/>
+    <mkdir dir="${distDir}"/>
+    <mkdir dir="./reports"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${srcDir}" destdir="${buildDir}">
+      <classpath>
+	<pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	<pathelement path="."/>
+	</classpath>
+    </javac>
+  </target>
+  
+  <target name="dist" depends="compile">
+    <jar destfile="${distDir}/package-${DSTAMP}.jar" basedir="${buildDir}">
+      <manifest>
+	<attribute name="Built-By" value="${user.name}"/>
+	<attribute name="Main-Class" value ="BlusterRunner"/>
+      </manifest>
+    </jar>
+    <jar destfile="${distDir}/package-src-${DSTAMP}.jar" basedir="${srcDir}"/>
+    </target>
+    <target name="run" depends="dist">
+      <java fork="true" classname="JumperRunner">
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+          
+       
+<target name="run-test" depends="compiletest" description="run the tests " >
+    <junit printsummary="yes" fork="yes" haltonfailure="yes">
+      <formatter type="plain"/>
+      <batchtest fork="true">
+        <fileset dir="${testDir}">
+          <include name="**/*Test*.java"/>
+        </fileset>
+      </batchtest>
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+    </junit>
+  </target>
+
+  <target name="compiletest" depends="compile"
+          description="compile the tests " >
+    <javac debug="true" 
+           srcdir="${testDir}" 
+           destdir="${buildDir}">
+      <classpath>
+	<pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	<pathelement path="build" />
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="test" depends="run-test">
+    <junitreport todir="./reports">
+      <fileset dir="./reports">
+	<include name="TEST-*.xml"/>
+      </fileset>
+      <report format="frames" todir="./report/html"/>
+    </junitreport>
+  </target>
+</project>
+

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<project default="run" name="helloWorld" basedir=".">
+  <description> A simple Java project</description>
+
+  <property name="srcDir" location="./src"/>
+  <property name="buildDir" location="./build"/>
+  <property name="distDir" location="./dist"/>
+  
+  <target name="clean">
+      <delete dir="${distDir}"/>
+  </target>
+
+  <target name="init" depends="clean">
+    <tstamp/>
+    <mkdir dir="${buildDir}"/>
+    <mkdir dir="${distDir}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${srcDir}" destdir="${buildDir}">
+      <classpath>
+	<pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	<pathelement path="."/>
+	</classpath>
+    </javac>
+  </target>
+  
+  <target name="dist" depends="compile">
+    <jar destfile="${distDir}/package-${DSTAMP}.jar" basedir="${buildDir}">
+      <manifest>
+	<attribute name="Built-By" value="${user.name}"/>
+	<attribute name="Main-Class" value ="BlusterRunner"/>
+      </manifest>
+    </jar>
+    <jar destfile="${distDir}/package-src-${DSTAMP}.jar" basedir="${srcDir}"/>
+    </target>
+
+    <target name="Crab" depends="dist">
+      <java fork="true" classname="CrabRunner">
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+
+      <target name="Bluster" depends="dist">
+      <java fork="true" classname="BlusterRunner">
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+
+          <target name="ChameKid" depends="dist">
+      <java fork="true" classname="ChameKidRunner">
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+
+	<target name="King" depends="dist">
+	  <java fork="true" classname="KingRunner">
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+
+	<target name="Quick" depends="dist">
+	  <java fork="true" classname="QuickCrabRunner">
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+
+	<target name="Rock" depends="dist">
+	  <java fork="true" classname="RockHoundRunner">
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+
+      	<target name="run" depends="dist">
+	  <java fork="true" classname="DyeCritterRunner">
+	<classpath>
+	  <pathelement path="/home/george/GridWorld/project2/gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+
+</project>
+

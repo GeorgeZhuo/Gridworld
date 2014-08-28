@@ -1,0 +1,15 @@
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+
+public class helloWorldTest {
+
+    public helloWorld hello = new helloWorld();
+    
+    @Test
+    public void testHello() {
+
+	hello.hello();
+	assertEquals("Hello World!", hello.getString());
+    }
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project default="ab" name="helloWorld" basedir=".">
+  <description> A simple Java project</description>
+
+  <property name="srcDir" location="./src"/>
+  <property name="buildDir" location="./build"/>
+  <property name="distDir" location="./dist"/>
+  
+  <target name="clean" depends="dist">
+      <delete dir="${distDir}"/>
+      <delete file="build/helloWorld.class" />
+  </target>
+
+  <target name="ab" depends="clean">
+    <mkdir dir="ab"/>
+    </target>
+
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${buildDir}"/>
+    <mkdir dir="${distDir}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${srcDir}" destdir="${buildDir}"/>
+  </target>
+  
+  <target name="dist" depends="compile">
+    <jar destfile="${distDir}/package-${DSTAMP}.jar" basedir="${buildDir}">
+      <manifest>
+	<attribute name="Built-By" value="${user.name}"/>
+	<attribute name="Main-Class" value ="helloWorld
+"/>
+      </manifest>
+    </jar>
+    <jar destfile="${distDir}/package-src-${DSTAMP}.jar" basedir="${srcDir}"/>
+    </target>
+
+          
+</project>
+

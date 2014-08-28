@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project default="run" name="MazeBug" basedir=".">
+  <description> A simple Java project</description>
+
+  <property name="srcDir" location="./src"/>
+  <property name="buildDir" location="./build"/>
+  <property name="distDir" location="./dist"/>
+  
+  <target name="clean">
+      <delete dir="${distDir}"/>
+  </target>
+
+  <target name="init" depends="clean">
+    <tstamp/>
+    <mkdir dir="${buildDir}"/>
+    <mkdir dir="${distDir}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${srcDir}" destdir="${buildDir}">
+      <classpath>
+	<pathelement path="./gridworld.jar"/>
+	<pathelement path="."/>
+	</classpath>
+    </javac>
+  </target>
+  
+  <target name="dist" depends="compile">
+    <jar destfile="${distDir}/package-${DSTAMP}.jar" basedir="${buildDir}">
+      <manifest>
+	<attribute name="Built-By" value="${user.name}"/>
+	<attribute name="Main-Class" value ="MazeBugRunner"/>
+      </manifest>
+    </jar>
+    <jar destfile="${distDir}/package-src-${DSTAMP}.jar" basedir="${srcDir}"/>
+    </target>
+
+    <target name="run" depends="dist">
+	  <java fork="true" classname="MazeBugRunner">
+	<classpath>
+	  <pathelement path="./gridworld.jar"/>
+	  <pathelement path="build" />
+	</classpath>
+	</java>
+      </target>
+
+</project>
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="mazeBug/info/gridworld/maze"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="dist/package-20140812.jar"/>
+	<classpathentry kind="lib" path="dist/package-src-20140812.jar"/>
+	<classpathentry kind="lib" path="gridworld.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

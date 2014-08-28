@@ -1,0 +1,6 @@
+Testsuite: JumperTest
+Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 0.546 sec
+
+Testcase: testCanJump took 0.508 sec
+Testcase: testTurn took 0 sec
+Testcase: testJump took 0 sec
